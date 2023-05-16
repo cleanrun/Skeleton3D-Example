@@ -1,0 +1,399 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AB1B138C2A125677002FE267 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B138B2A125677002FE267 /* AppDelegate.swift */; };
+		AB1B138E2A125677002FE267 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B138D2A125677002FE267 /* SceneDelegate.swift */; };
+		AB1B13902A125677002FE267 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B138F2A125677002FE267 /* ViewController.swift */; };
+		AB1B13932A125677002FE267 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB1B13912A125677002FE267 /* Main.storyboard */; };
+		AB1B13952A125678002FE267 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB1B13942A125678002FE267 /* Assets.xcassets */; };
+		AB1B13982A125678002FE267 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB1B13962A125678002FE267 /* LaunchScreen.storyboard */; };
+		AB1B13A12A1280BE002FE267 /* Pose3DSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B13A02A1280BE002FE267 /* Pose3DSceneView.swift */; };
+		AB1B13A42A1281EB002FE267 /* KeypointJointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B13A32A1281EB002FE267 /* KeypointJointType.swift */; };
+		AB1B13A62A1282EA002FE267 /* HumanKeypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B13A52A1282EA002FE267 /* HumanKeypoint.swift */; };
+		ABB1BD602A133A0800200D6D /* KeypointsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1BD5F2A133A0800200D6D /* KeypointsData.swift */; };
+		ABB1BD612A133BEC00200D6D /* keypoints_data.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1B139F2A12785B002FE267 /* keypoints_data.json */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AB1B13882A125677002FE267 /* Skeleton3D-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Skeleton3D-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB1B138B2A125677002FE267 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AB1B138D2A125677002FE267 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		AB1B138F2A125677002FE267 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AB1B13922A125677002FE267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AB1B13942A125678002FE267 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AB1B13972A125678002FE267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AB1B13992A125678002FE267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB1B139F2A12785B002FE267 /* keypoints_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = keypoints_data.json; sourceTree = "<group>"; };
+		AB1B13A02A1280BE002FE267 /* Pose3DSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pose3DSceneView.swift; sourceTree = "<group>"; };
+		AB1B13A32A1281EB002FE267 /* KeypointJointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeypointJointType.swift; sourceTree = "<group>"; };
+		AB1B13A52A1282EA002FE267 /* HumanKeypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanKeypoint.swift; sourceTree = "<group>"; };
+		ABB1BD5F2A133A0800200D6D /* KeypointsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeypointsData.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AB1B13852A125677002FE267 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AB1B137F2A125677002FE267 = {
+			isa = PBXGroup;
+			children = (
+				AB1B138A2A125677002FE267 /* Skeleton3D-Example */,
+				AB1B13892A125677002FE267 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AB1B13892A125677002FE267 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB1B13882A125677002FE267 /* Skeleton3D-Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AB1B138A2A125677002FE267 /* Skeleton3D-Example */ = {
+			isa = PBXGroup;
+			children = (
+				AB1B13A22A1281DF002FE267 /* Models */,
+				AB1B138B2A125677002FE267 /* AppDelegate.swift */,
+				AB1B138D2A125677002FE267 /* SceneDelegate.swift */,
+				AB1B138F2A125677002FE267 /* ViewController.swift */,
+				AB1B13A02A1280BE002FE267 /* Pose3DSceneView.swift */,
+				AB1B13912A125677002FE267 /* Main.storyboard */,
+				AB1B13942A125678002FE267 /* Assets.xcassets */,
+				AB1B13962A125678002FE267 /* LaunchScreen.storyboard */,
+				AB1B13992A125678002FE267 /* Info.plist */,
+				AB1B139F2A12785B002FE267 /* keypoints_data.json */,
+			);
+			path = "Skeleton3D-Example";
+			sourceTree = "<group>";
+		};
+		AB1B13A22A1281DF002FE267 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AB1B13A32A1281EB002FE267 /* KeypointJointType.swift */,
+				AB1B13A52A1282EA002FE267 /* HumanKeypoint.swift */,
+				ABB1BD5F2A133A0800200D6D /* KeypointsData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AB1B13872A125677002FE267 /* Skeleton3D-Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB1B139C2A125678002FE267 /* Build configuration list for PBXNativeTarget "Skeleton3D-Example" */;
+			buildPhases = (
+				AB1B13842A125677002FE267 /* Sources */,
+				AB1B13852A125677002FE267 /* Frameworks */,
+				AB1B13862A125677002FE267 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Skeleton3D-Example";
+			productName = "Skeleton3D-Example";
+			productReference = AB1B13882A125677002FE267 /* Skeleton3D-Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AB1B13802A125677002FE267 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1410;
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					AB1B13872A125677002FE267 = {
+						CreatedOnToolsVersion = 14.1;
+					};
+				};
+			};
+			buildConfigurationList = AB1B13832A125677002FE267 /* Build configuration list for PBXProject "Skeleton3D-Example" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AB1B137F2A125677002FE267;
+			productRefGroup = AB1B13892A125677002FE267 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AB1B13872A125677002FE267 /* Skeleton3D-Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB1B13862A125677002FE267 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABB1BD612A133BEC00200D6D /* keypoints_data.json in Resources */,
+				AB1B13982A125678002FE267 /* LaunchScreen.storyboard in Resources */,
+				AB1B13952A125678002FE267 /* Assets.xcassets in Resources */,
+				AB1B13932A125677002FE267 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB1B13842A125677002FE267 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB1B13A42A1281EB002FE267 /* KeypointJointType.swift in Sources */,
+				AB1B13902A125677002FE267 /* ViewController.swift in Sources */,
+				AB1B138C2A125677002FE267 /* AppDelegate.swift in Sources */,
+				AB1B138E2A125677002FE267 /* SceneDelegate.swift in Sources */,
+				AB1B13A62A1282EA002FE267 /* HumanKeypoint.swift in Sources */,
+				AB1B13A12A1280BE002FE267 /* Pose3DSceneView.swift in Sources */,
+				ABB1BD602A133A0800200D6D /* KeypointsData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AB1B13912A125677002FE267 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AB1B13922A125677002FE267 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AB1B13962A125678002FE267 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AB1B13972A125678002FE267 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AB1B139A2A125678002FE267 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AB1B139B2A125678002FE267 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AB1B139D2A125678002FE267 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6J2XDDYT2W;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Skeleton3D-Example/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cleanrun.Skeleton3D-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		AB1B139E2A125678002FE267 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6J2XDDYT2W;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Skeleton3D-Example/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cleanrun.Skeleton3D-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AB1B13832A125677002FE267 /* Build configuration list for PBXProject "Skeleton3D-Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB1B139A2A125678002FE267 /* Debug */,
+				AB1B139B2A125678002FE267 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB1B139C2A125678002FE267 /* Build configuration list for PBXNativeTarget "Skeleton3D-Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB1B139D2A125678002FE267 /* Debug */,
+				AB1B139E2A125678002FE267 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AB1B13802A125677002FE267 /* Project object */;
+}
