@@ -35,6 +35,7 @@ final class Pose3DSceneView: SCNView {
     /// The keypoint nodes based on the data provided
     private var keypointNodes: [SCNNode] = []
     
+    /// Sets up the view
     func setup() {
         currentScene = SCNScene()
         
@@ -88,8 +89,35 @@ final class Pose3DSceneView: SCNView {
         scene.rootNode.addChildNode(floorNode)
     }
     
-    func createLineBetweenNodes() {
+    /// Create the skeleton nodes between provided keypoints
+    /// - Parameter type: The type of the skeleton to retrieve the origin and destination vectors
+    /// - Returns: Returns the created nodes between both keypoint vectors. Returns `nil` if one of the keypoints doesn't exist
+    private func createLineBetweenNodes(type: SkeletonType) -> SCNNode? {
+        guard
+            let originKeypointVector = keypoints.first(where: { $0.type == type.originKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
+            let destinationKeypointVector = keypoints.first(where: { $0.type == type.destinationKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize))
+        else { return nil }
         
+        let vector = SCNVector3Make(originKeypointVector.x - destinationKeypointVector.x,
+                                    originKeypointVector.y - destinationKeypointVector.y,
+                                    originKeypointVector.z - destinationKeypointVector.z)
+        let distance = sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
+        let midPosition = SCNVector3Make((originKeypointVector.x + destinationKeypointVector.x) / 2,
+                                         (originKeypointVector.y + destinationKeypointVector.y) / 2,
+                                         (originKeypointVector.z + destinationKeypointVector.z) / 2)
+        
+        let line = SCNCylinder()
+        line.radius = CGFloat(lineRadius)
+        line.height = CGFloat(distance)
+        line.radialSegmentCount = 5
+        
+        let lineNode = SCNNode(geometry: line)
+        lineNode.position = midPosition
+        lineNode.look(at: destinationKeypointVector,
+                      up: scene!.rootNode.worldUp,
+                      localFront: lineNode.worldUp)
+        
+        return lineNode
     }
     
     /// Create a specific sphere node to indicate the position of keypoint from a data
