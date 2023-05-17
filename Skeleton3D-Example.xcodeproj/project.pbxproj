@@ -16,6 +16,7 @@
 		AB1B13A12A1280BE002FE267 /* Pose3DSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B13A02A1280BE002FE267 /* Pose3DSceneView.swift */; };
 		AB1B13A42A1281EB002FE267 /* KeypointJointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B13A32A1281EB002FE267 /* KeypointJointType.swift */; };
 		AB1B13A62A1282EA002FE267 /* HumanKeypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1B13A52A1282EA002FE267 /* HumanKeypoint.swift */; };
+		AB2E9DC12A14AC2B00922C00 /* NodeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E9DC02A14AC2B00922C00 /* NodeModels.swift */; };
 		AB95F9522A13CA0100AF7D31 /* SkeletonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB95F9512A13CA0100AF7D31 /* SkeletonType.swift */; };
 		ABB1BD602A133A0800200D6D /* KeypointsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1BD5F2A133A0800200D6D /* KeypointsData.swift */; };
 		ABB1BD612A133BEC00200D6D /* keypoints_data.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1B139F2A12785B002FE267 /* keypoints_data.json */; };
@@ -34,6 +35,7 @@
 		AB1B13A02A1280BE002FE267 /* Pose3DSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pose3DSceneView.swift; sourceTree = "<group>"; };
 		AB1B13A32A1281EB002FE267 /* KeypointJointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeypointJointType.swift; sourceTree = "<group>"; };
 		AB1B13A52A1282EA002FE267 /* HumanKeypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanKeypoint.swift; sourceTree = "<group>"; };
+		AB2E9DC02A14AC2B00922C00 /* NodeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeModels.swift; sourceTree = "<group>"; };
 		AB95F9512A13CA0100AF7D31 /* SkeletonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonType.swift; sourceTree = "<group>"; };
 		ABB1BD5F2A133A0800200D6D /* KeypointsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeypointsData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,6 +91,7 @@
 				AB1B13A52A1282EA002FE267 /* HumanKeypoint.swift */,
 				ABB1BD5F2A133A0800200D6D /* KeypointsData.swift */,
 				AB95F9512A13CA0100AF7D31 /* SkeletonType.swift */,
+				AB2E9DC02A14AC2B00922C00 /* NodeModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 				AB1B138E2A125677002FE267 /* SceneDelegate.swift in Sources */,
 				AB95F9522A13CA0100AF7D31 /* SkeletonType.swift in Sources */,
 				AB1B13A62A1282EA002FE267 /* HumanKeypoint.swift in Sources */,
+				AB2E9DC12A14AC2B00922C00 /* NodeModels.swift in Sources */,
 				AB1B13A12A1280BE002FE267 /* Pose3DSceneView.swift in Sources */,
 				ABB1BD602A133A0800200D6D /* KeypointsData.swift in Sources */,
 			);

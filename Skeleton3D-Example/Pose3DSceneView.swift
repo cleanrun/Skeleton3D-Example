@@ -34,14 +34,19 @@ final class Pose3DSceneView: SCNView {
     /// The keypoints data loaded from a JSON file
     private var keypointsData: [KeypointsData]!
     
-    /// Every keypoints of the data, this will be used as an indicator for initializing the nodes
-    private var keypoints: [HumanKeypoint] = []
+    /// The current keypoint information that is being shown
+    private var currentKeypoint: KeypointsData! {
+        didSet {
+            updateKeypointPositions()
+            updateSkeletonPositions()
+        }
+    }
     
     /// The keypoint nodes based on the data provided
-    private var keypointNodes: [SCNNode] = []
+    private var keypointNodes: [KeypointNodeModel] = []
     
     /// The skeleton nodes that connects 2 keypoint nodes
-    private var skeletonNodes: [SCNNode] = []
+    private var skeletonNodes: [SkeletonNodeModel] = []
     
     required init(using keypointsData: [KeypointsData]) {
         self.keypointsData = keypointsData
@@ -81,9 +86,10 @@ final class Pose3DSceneView: SCNView {
         
         // This is to limit the camera rotation only to X axis
         defaultCameraController.maximumVerticalAngle = 0.001
-        
-        configureKeypoints(keypointsData.first!)
-        configureSkeletons()
+
+        configureInitialKeypoints()
+        configureInitialSkeletons()
+        currentKeypoint = keypointsData.first!
         setCameraNodePosition()
     }
     
@@ -114,7 +120,7 @@ final class Pose3DSceneView: SCNView {
     ///
     /// The reason for this is to make the 3D model is centered to the screen.
     private func setCameraNodePosition() {
-        guard let hipKeypoint = keypoints.first(where: { $0.type == .hips }) else { return }
+        guard let hipKeypoint = currentKeypoint.keypoints.first(where: { $0.type == .hips }) else { return }
         
         cameraNode.position = SCNVector3Make(hipKeypoint.getConvertedPosition(relativeTo: CGFloat(studioSize)).x,
                                              hipKeypoint.getConvertedPosition(relativeTo: CGFloat(studioSize)).y,
@@ -132,6 +138,16 @@ final class Pose3DSceneView: SCNView {
         return keypointNode
     }
     
+    /// Create the initial nodes for the keypoints without assigning it's position
+    /// - Returns: Returns the created node
+    private func createKeypointNode() -> SCNNode {
+        let sphere = SCNSphere(radius: keypointNodeRadius)
+        let keypointNode = SCNNode(geometry: sphere)
+        keypointNode.position = SCNVector3Make(0, 0, 0)
+        keypointNode.geometry?.firstMaterial?.diffuse.contents = UIColor.lightGray
+        return keypointNode
+    }
+    
     /// Create the skeleton nodes between provided keypoints
     ///
     /// This function must be called AFTER keypoint nodes is created. Otherwise this function return `nil`.
@@ -139,8 +155,8 @@ final class Pose3DSceneView: SCNView {
     /// - Returns: Returns the created nodes between both keypoint vectors. Returns `nil` if one of the keypoints doesn't exist
     private func createLineBetweenNodes(type: SkeletonType) -> SCNNode? {
         guard
-            let originKeypointVector = keypoints.first(where: { $0.type == type.originKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
-            let destinationKeypointVector = keypoints.first(where: { $0.type == type.destinationKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize))
+            let originKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.originKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
+            let destinationKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.destinationKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize))
         else { return nil }
         
         let vector = SCNVector3Make(originKeypointVector.x - destinationKeypointVector.x,
@@ -165,30 +181,98 @@ final class Pose3DSceneView: SCNView {
         return lineNode
     }
     
-    /// Create nodes from a keypoint model and add it to the scene
-    /// - Parameter model: The model used to add the keypoints
-    private func configureKeypoints(_ model: KeypointsData) {
-        model.keypoints.forEach { keypoint in
-            let keypoint = keypoint
-            let keypointNode = createKeypointNode(from: keypoint)
-            
-            keypoints.append(keypoint)
-            keypointNodes.append(keypointNode)
-            
-            scene?.rootNode.addChildNode(keypointNode)
+    /// Create the initial nodes for all of the keypoints
+    private func configureInitialKeypoints() {
+        keypointNodes.removeAll()
+        KeypointJointType.allCases.forEach { type in
+            if type == .unknown { return }
+            let node = createKeypointNode()
+            let nodeModel = KeypointNodeModel(type: type, node: node)
+            keypointNodes.append(nodeModel)
+            scene?.rootNode.addChildNode(node)
         }
     }
     
-    /// Create skeleton nodes that connects between 2 keypoints based on a certain connection type
-    private func configureSkeletons() {
+    /// Create all of the skeleton nodes based on the very first keypoint data
+    private func configureInitialSkeletons() {
+        let firstKeypoint = keypointsData.first!
+        
         SkeletonType.allCases.forEach { type in
             guard
-                let scene,
-                let skeletonNode = createLineBetweenNodes(type: type)
+                let originKeypointVector = firstKeypoint.keypoints.first(where: { $0.type == type.originKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
+                let destinationKeypointVector = firstKeypoint.keypoints.first(where: { $0.type == type.destinationKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize))
             else { return }
-            skeletonNodes.append(skeletonNode)
-            scene.rootNode.addChildNode(skeletonNode)
+            
+            let vector = SCNVector3Make(originKeypointVector.x - destinationKeypointVector.x,
+                                        originKeypointVector.y - destinationKeypointVector.y,
+                                        originKeypointVector.z - destinationKeypointVector.z)
+            let distance = sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
+            let midPosition = SCNVector3Make((originKeypointVector.x + destinationKeypointVector.x) / 2,
+                                             (originKeypointVector.y + destinationKeypointVector.y) / 2,
+                                             (originKeypointVector.z + destinationKeypointVector.z) / 2)
+            
+            let line = SCNCylinder()
+            line.radius = CGFloat(lineRadius)
+            line.height = CGFloat(distance)
+            line.radialSegmentCount = 5
+            
+            let lineNode = SCNNode(geometry: line)
+            lineNode.position = midPosition
+            lineNode.look(at: destinationKeypointVector,
+                          up: scene!.rootNode.worldUp,
+                          localFront: lineNode.worldUp)
+            
+            let nodeModel = SkeletonNodeModel(type: type, node: lineNode)
+            skeletonNodes.append(nodeModel)
+            scene?.rootNode.addChildNode(lineNode)
         }
+    }
+    
+    /// Update the position of each keypoint nodes when the current keypoint changes
+    private func updateKeypointPositions() {
+        keypointNodes.enumerated().forEach { index, model in
+            if index != model.type.rawValue { return }
+            let position = currentKeypoint.keypoints[model.type.rawValue]
+            let node = model.node
+            node.position = position.getConvertedPosition(relativeTo: CGFloat(studioSize))
+        }
+    }
+    
+    /// Update the position of each skeleton nodes when the current keypoint changes
+    private func updateSkeletonPositions() {
+        // FIXME: When updating the skeletons, it has some weird behavior (run it to see the problem)
+        SkeletonType.allCases.forEach { type in
+            guard
+                let originKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.originKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
+                let destinationKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.destinationKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
+                let lineNodeModel = skeletonNodes.first(where: { $0.type == type })
+            else { return }
+            
+            let vector = SCNVector3Make(originKeypointVector.x - destinationKeypointVector.x,
+                                        originKeypointVector.y - destinationKeypointVector.y,
+                                        originKeypointVector.z - destinationKeypointVector.z)
+            let distance = sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z)
+            let midPosition = SCNVector3Make((originKeypointVector.x + destinationKeypointVector.x) / 2,
+                                             (originKeypointVector.y + destinationKeypointVector.y) / 2,
+                                             (originKeypointVector.z + destinationKeypointVector.z) / 2)
+            
+            (lineNodeModel.node.geometry as! SCNCylinder).height = CGFloat(distance)
+            lineNodeModel.node.position = midPosition
+        }
+    }
+    
+    /// Switches the keypoint information based on the keypoints array
+    /// - Parameter isNext: An indicator whether the changed keypoint will be the next ot the previous one of the current keypoint
+    func switchFrame(isNext: Bool) {
+//        if isNext {
+//            guard currentKeypoint.id != keypointsData.endIndex else { return }
+//            currentKeypoint = keypointsData[currentKeypoint.id + 1]
+//        } else {
+//            guard currentKeypoint.id != 0 else { return }
+//            currentKeypoint = keypointsData[currentKeypoint.id - 1]
+//        }
+        
+        currentKeypoint = isNext ? keypointsData.last : keypointsData.first
     }
     
 }
