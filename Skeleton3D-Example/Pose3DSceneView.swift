@@ -6,7 +6,6 @@
 //
 
 import SceneKit
-import QuartzCore
 
 final class Pose3DSceneView: SCNView {
     
@@ -27,7 +26,13 @@ final class Pose3DSceneView: SCNView {
     private let lineRadius: Float = 0.05
     private let keypointNodeRadius: CGFloat = 0.15
     
+    /// Pretty much the Z coordinate of the camera node
+    private let cameraDistance: Float = 20
+    
     private var isAdjustMode = false
+    
+    /// The keypoints data loaded from a JSON file
+    private var keypointsData: [KeypointsData]!
     
     /// Every keypoints of the data, this will be used as an indicator for initializing the nodes
     private var keypoints: [HumanKeypoint] = []
@@ -35,15 +40,26 @@ final class Pose3DSceneView: SCNView {
     /// The keypoint nodes based on the data provided
     private var keypointNodes: [SCNNode] = []
     
+    /// The skeleton nodes that connects 2 keypoint nodes
+    private var skeletonNodes: [SCNNode] = []
+    
+    required init(using keypointsData: [KeypointsData]) {
+        self.keypointsData = keypointsData
+        super.init(frame: .zero, options: nil)
+        commonInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("Storyboard/XIB initializations are not supported")
+    }
+    
     /// Sets up the view
-    func setup() {
+    private func commonInit() {
         currentScene = SCNScene()
         
         cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         currentScene.rootNode.addChildNode(cameraNode)
-        
-        cameraNode.position = SCNVector3Make(0, 0, 40)
         
         lightNode = SCNNode()
         lightNode.light = SCNLight()
@@ -57,17 +73,22 @@ final class Pose3DSceneView: SCNView {
         ambientLightNode.light!.color = UIColor.darkGray
         currentScene.rootNode.addChildNode(ambientLightNode)
         
-        
         scene = currentScene
-        
         allowsCameraControl = true
         showsStatistics = true
         backgroundColor = .lightGray
         autoenablesDefaultLighting = true
+        
+        // This is to limit the camera rotation only to X axis
+        defaultCameraController.maximumVerticalAngle = 0.001
+        
+        configureKeypoints(keypointsData.first!)
+        configureSkeletons()
+        setCameraNodePosition()
     }
     
     /// Initialize the background nodes for containing the keypoints and skeletons
-    func setBackgroundNodes() {
+    private func setBackgroundNodes() {
         guard let scene else { return }
         
         let extendedStudioSize = studioSize * 1.2
@@ -89,7 +110,31 @@ final class Pose3DSceneView: SCNView {
         scene.rootNode.addChildNode(floorNode)
     }
     
+    /// Setting up the camera node position relative to the hip x and y coordinates.
+    ///
+    /// The reason for this is to make the 3D model is centered to the screen.
+    private func setCameraNodePosition() {
+        guard let hipKeypoint = keypoints.first(where: { $0.type == .hips }) else { return }
+        
+        cameraNode.position = SCNVector3Make(hipKeypoint.getConvertedPosition(relativeTo: CGFloat(studioSize)).x,
+                                             hipKeypoint.getConvertedPosition(relativeTo: CGFloat(studioSize)).y,
+                                             cameraDistance)
+    }
+    
+    /// Create a specific sphere node to indicate the position of keypoint from a data
+    /// - Parameter keypoint: The keypoint model
+    /// - Returns: Returns the created node
+    private func createKeypointNode(from keypoint: HumanKeypoint) -> SCNNode {
+        let sphere = SCNSphere(radius: keypointNodeRadius)
+        let keypointNode = SCNNode(geometry: sphere)
+        keypointNode.position = keypoint.getConvertedPosition(relativeTo: CGFloat(studioSize))
+        keypointNode.geometry?.firstMaterial?.diffuse.contents = keypoint.type.color
+        return keypointNode
+    }
+    
     /// Create the skeleton nodes between provided keypoints
+    ///
+    /// This function must be called AFTER keypoint nodes is created. Otherwise this function return `nil`.
     /// - Parameter type: The type of the skeleton to retrieve the origin and destination vectors
     /// - Returns: Returns the created nodes between both keypoint vectors. Returns `nil` if one of the keypoints doesn't exist
     private func createLineBetweenNodes(type: SkeletonType) -> SCNNode? {
@@ -120,20 +165,9 @@ final class Pose3DSceneView: SCNView {
         return lineNode
     }
     
-    /// Create a specific sphere node to indicate the position of keypoint from a data
-    /// - Parameter keypoint: The keypoint model
-    /// - Returns: Returns the created node
-    private func createKeypointNode(from keypoint: HumanKeypoint) -> SCNNode {
-        let sphere = SCNSphere(radius: keypointNodeRadius)
-        let keypointNode = SCNNode(geometry: sphere)
-        keypointNode.position = keypoint.getConvertedPosition(relativeTo: CGFloat(studioSize))
-        keypointNode.geometry?.firstMaterial?.diffuse.contents = keypoint.type.color
-        return keypointNode
-    }
-    
     /// Create nodes from a keypoint model and add it to the scene
     /// - Parameter model: The model used to add the keypoints
-    func configureKeypoints(_ model: KeypointsData) {
+    private func configureKeypoints(_ model: KeypointsData) {
         model.keypoints.forEach { keypoint in
             let keypoint = keypoint
             let keypointNode = createKeypointNode(from: keypoint)
@@ -142,6 +176,18 @@ final class Pose3DSceneView: SCNView {
             keypointNodes.append(keypointNode)
             
             scene?.rootNode.addChildNode(keypointNode)
+        }
+    }
+    
+    /// Create skeleton nodes that connects between 2 keypoints based on a certain connection type
+    private func configureSkeletons() {
+        SkeletonType.allCases.forEach { type in
+            guard
+                let scene,
+                let skeletonNode = createLineBetweenNodes(type: type)
+            else { return }
+            skeletonNodes.append(skeletonNode)
+            scene.rootNode.addChildNode(skeletonNode)
         }
     }
     

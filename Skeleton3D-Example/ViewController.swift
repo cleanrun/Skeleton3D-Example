@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    /// A custom `SCNView`object to render the keypoints
     private var sceneView: Pose3DSceneView!
     
     /// The keypoints data loaded from a JSON file
@@ -22,7 +23,7 @@ class ViewController: UIViewController {
     
     /// Add the scene view into the controller and load the data to the scene view
     private func setSceneView() {
-        sceneView = Pose3DSceneView()
+        sceneView = Pose3DSceneView(using: keypointsData)
         sceneView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(sceneView)
         
@@ -32,10 +33,6 @@ class ViewController: UIViewController {
             sceneView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             sceneView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
-        sceneView.setup()
-        //sceneView.setBackgroundNodes()
-        sceneView.configureKeypoints(keypointsData.first!)
     }
     
     /// Load the data from a JSON file from the Bundle

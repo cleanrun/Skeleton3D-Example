@@ -31,6 +31,7 @@ enum KeypointJointType: Int, CaseIterable {
     
     case unknown       = 99
     
+    // FIXME: This is just a placeholder Color to differentiate which type of the keypoint.
     var color: UIColor {
         switch self {
         case .head:

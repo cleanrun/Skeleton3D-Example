@@ -22,9 +22,7 @@ struct HumanKeypoint {
     }
     
     /// The `SCNVector3` object based on the coordinates
-    var position: SCNVector3 {
-        SCNVector3Make(x, y, z)
-    }
+    var position: SCNVector3 { SCNVector3Make(x, y, z) }
     
     /// Convert the original position relative to the scene's size
     /// - Parameter size: The size of the scene
