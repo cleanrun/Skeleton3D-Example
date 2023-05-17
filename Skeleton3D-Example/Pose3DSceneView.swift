@@ -38,7 +38,8 @@ final class Pose3DSceneView: SCNView {
     private var currentKeypoint: KeypointsData! {
         didSet {
             updateKeypointPositions()
-            updateSkeletonPositions()
+            //updateSkeletonPositions()
+            configureInitialSkeletons()
         }
     }
     
@@ -88,8 +89,8 @@ final class Pose3DSceneView: SCNView {
         defaultCameraController.maximumVerticalAngle = 0.001
 
         configureInitialKeypoints()
-        configureInitialSkeletons()
-        currentKeypoint = keypointsData.first!
+        //configureInitialSkeletons()
+        currentKeypoint = keypointsData[100]
         setCameraNodePosition()
     }
     
@@ -195,12 +196,16 @@ final class Pose3DSceneView: SCNView {
     
     /// Create all of the skeleton nodes based on the very first keypoint data
     private func configureInitialSkeletons() {
-        let firstKeypoint = keypointsData.first!
+        skeletonNodes.forEach { model in
+            model.node.removeFromParentNode()
+        }
+        skeletonNodes.removeAll()
+        //let firstKeypoint = keypointsData.first!
         
         SkeletonType.allCases.forEach { type in
             guard
-                let originKeypointVector = firstKeypoint.keypoints.first(where: { $0.type == type.originKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
-                let destinationKeypointVector = firstKeypoint.keypoints.first(where: { $0.type == type.destinationKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize))
+                let originKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.originKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
+                let destinationKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.destinationKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize))
             else { return }
             
             let vector = SCNVector3Make(originKeypointVector.x - destinationKeypointVector.x,
@@ -264,15 +269,17 @@ final class Pose3DSceneView: SCNView {
     /// Switches the keypoint information based on the keypoints array
     /// - Parameter isNext: An indicator whether the changed keypoint will be the next ot the previous one of the current keypoint
     func switchFrame(isNext: Bool) {
-//        if isNext {
-//            guard currentKeypoint.id != keypointsData.endIndex else { return }
-//            currentKeypoint = keypointsData[currentKeypoint.id + 1]
-//        } else {
-//            guard currentKeypoint.id != 0 else { return }
-//            currentKeypoint = keypointsData[currentKeypoint.id - 1]
-//        }
+        if isNext {
+            guard currentKeypoint.id != (keypointsData.count - 1) else { return }
+            currentKeypoint = keypointsData[currentKeypoint.id + 1]
+        } else {
+            guard currentKeypoint.id != 0 else { return }
+            currentKeypoint = keypointsData[currentKeypoint.id - 1]
+        }
         
-        currentKeypoint = isNext ? keypointsData.last : keypointsData.first
+        print("current id: \(currentKeypoint.id)")
+        
+        //currentKeypoint = isNext ? keypointsData.last : keypointsData.first
     }
     
 }
