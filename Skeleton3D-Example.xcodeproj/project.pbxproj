@@ -20,6 +20,15 @@
 		AB95F9522A13CA0100AF7D31 /* SkeletonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB95F9512A13CA0100AF7D31 /* SkeletonType.swift */; };
 		ABB1BD602A133A0800200D6D /* KeypointsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1BD5F2A133A0800200D6D /* KeypointsData.swift */; };
 		ABB1BD612A133BEC00200D6D /* keypoints_data.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1B139F2A12785B002FE267 /* keypoints_data.json */; };
+		ABDE1A762A1B2C3100E0D618 /* biped_robot.fbx in Resources */ = {isa = PBXBuildFile; fileRef = ABDE1A742A1B2C3100E0D618 /* biped_robot.fbx */; };
+		ABDE1A772A1B2C3100E0D618 /* biped_robot.usdz in Resources */ = {isa = PBXBuildFile; fileRef = ABDE1A752A1B2C3100E0D618 /* biped_robot.usdz */; };
+		ABDE1A7A2A1B2E4700E0D618 /* SCNVector3+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A792A1B2E4700E0D618 /* SCNVector3+Extension.swift */; };
+		ABDE1A7C2A1B30A500E0D618 /* BipedRobotScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A7B2A1B30A500E0D618 /* BipedRobotScene.swift */; };
+		ABDE1A7F2A1B366300E0D618 /* BipedRobotJointNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A7E2A1B366300E0D618 /* BipedRobotJointNames.swift */; };
+		ABDE1A822A1B529B00E0D618 /* ArmSkeletonTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A812A1B529B00E0D618 /* ArmSkeletonTree.swift */; };
+		ABDE1A842A1B58C400E0D618 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A832A1B58C400E0D618 /* Constants.swift */; };
+		ABDE1A862A1B658C00E0D618 /* HumanSkeletonTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A852A1B658C00E0D618 /* HumanSkeletonTree.swift */; };
+		ABDE1A882A1B659C00E0D618 /* LegSkeletonTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A872A1B659C00E0D618 /* LegSkeletonTree.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +47,15 @@
 		AB2E9DC02A14AC2B00922C00 /* NodeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeModels.swift; sourceTree = "<group>"; };
 		AB95F9512A13CA0100AF7D31 /* SkeletonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonType.swift; sourceTree = "<group>"; };
 		ABB1BD5F2A133A0800200D6D /* KeypointsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeypointsData.swift; sourceTree = "<group>"; };
+		ABDE1A742A1B2C3100E0D618 /* biped_robot.fbx */ = {isa = PBXFileReference; lastKnownFileType = file; path = biped_robot.fbx; sourceTree = "<group>"; };
+		ABDE1A752A1B2C3100E0D618 /* biped_robot.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = biped_robot.usdz; sourceTree = "<group>"; };
+		ABDE1A792A1B2E4700E0D618 /* SCNVector3+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extension.swift"; sourceTree = "<group>"; };
+		ABDE1A7B2A1B30A500E0D618 /* BipedRobotScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipedRobotScene.swift; sourceTree = "<group>"; };
+		ABDE1A7E2A1B366300E0D618 /* BipedRobotJointNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BipedRobotJointNames.swift; sourceTree = "<group>"; };
+		ABDE1A812A1B529B00E0D618 /* ArmSkeletonTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmSkeletonTree.swift; sourceTree = "<group>"; };
+		ABDE1A832A1B58C400E0D618 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		ABDE1A852A1B658C00E0D618 /* HumanSkeletonTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanSkeletonTree.swift; sourceTree = "<group>"; };
+		ABDE1A872A1B659C00E0D618 /* LegSkeletonTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegSkeletonTree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,11 +88,13 @@
 		AB1B138A2A125677002FE267 /* Skeleton3D-Example */ = {
 			isa = PBXGroup;
 			children = (
+				ABDE1A732A1B2C2400E0D618 /* 3D Model */,
+				ABDE1A782A1B2E3700E0D618 /* Extensions */,
 				AB1B13A22A1281DF002FE267 /* Models */,
+				ABDE1A7D2A1B30AE00E0D618 /* Utilities */,
 				AB1B138B2A125677002FE267 /* AppDelegate.swift */,
 				AB1B138D2A125677002FE267 /* SceneDelegate.swift */,
 				AB1B138F2A125677002FE267 /* ViewController.swift */,
-				AB1B13A02A1280BE002FE267 /* Pose3DSceneView.swift */,
 				AB1B13912A125677002FE267 /* Main.storyboard */,
 				AB1B13942A125678002FE267 /* Assets.xcassets */,
 				AB1B13962A125678002FE267 /* LaunchScreen.storyboard */,
@@ -87,13 +107,52 @@
 		AB1B13A22A1281DF002FE267 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				ABDE1A802A1B528D00E0D618 /* Skeleton */,
 				AB1B13A32A1281EB002FE267 /* KeypointJointType.swift */,
 				AB1B13A52A1282EA002FE267 /* HumanKeypoint.swift */,
 				ABB1BD5F2A133A0800200D6D /* KeypointsData.swift */,
 				AB95F9512A13CA0100AF7D31 /* SkeletonType.swift */,
 				AB2E9DC02A14AC2B00922C00 /* NodeModels.swift */,
+				ABDE1A7E2A1B366300E0D618 /* BipedRobotJointNames.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		ABDE1A732A1B2C2400E0D618 /* 3D Model */ = {
+			isa = PBXGroup;
+			children = (
+				ABDE1A742A1B2C3100E0D618 /* biped_robot.fbx */,
+				ABDE1A752A1B2C3100E0D618 /* biped_robot.usdz */,
+			);
+			path = "3D Model";
+			sourceTree = "<group>";
+		};
+		ABDE1A782A1B2E3700E0D618 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ABDE1A792A1B2E4700E0D618 /* SCNVector3+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		ABDE1A7D2A1B30AE00E0D618 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				AB1B13A02A1280BE002FE267 /* Pose3DSceneView.swift */,
+				ABDE1A7B2A1B30A500E0D618 /* BipedRobotScene.swift */,
+				ABDE1A832A1B58C400E0D618 /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		ABDE1A802A1B528D00E0D618 /* Skeleton */ = {
+			isa = PBXGroup;
+			children = (
+				ABDE1A812A1B529B00E0D618 /* ArmSkeletonTree.swift */,
+				ABDE1A872A1B659C00E0D618 /* LegSkeletonTree.swift */,
+				ABDE1A852A1B658C00E0D618 /* HumanSkeletonTree.swift */,
+			);
+			path = Skeleton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,7 +215,9 @@
 			files = (
 				ABB1BD612A133BEC00200D6D /* keypoints_data.json in Resources */,
 				AB1B13982A125678002FE267 /* LaunchScreen.storyboard in Resources */,
+				ABDE1A762A1B2C3100E0D618 /* biped_robot.fbx in Resources */,
 				AB1B13952A125678002FE267 /* Assets.xcassets in Resources */,
+				ABDE1A772A1B2C3100E0D618 /* biped_robot.usdz in Resources */,
 				AB1B13932A125677002FE267 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -170,13 +231,20 @@
 			files = (
 				AB1B13A42A1281EB002FE267 /* KeypointJointType.swift in Sources */,
 				AB1B13902A125677002FE267 /* ViewController.swift in Sources */,
+				ABDE1A7C2A1B30A500E0D618 /* BipedRobotScene.swift in Sources */,
 				AB1B138C2A125677002FE267 /* AppDelegate.swift in Sources */,
+				ABDE1A7A2A1B2E4700E0D618 /* SCNVector3+Extension.swift in Sources */,
 				AB1B138E2A125677002FE267 /* SceneDelegate.swift in Sources */,
 				AB95F9522A13CA0100AF7D31 /* SkeletonType.swift in Sources */,
+				ABDE1A822A1B529B00E0D618 /* ArmSkeletonTree.swift in Sources */,
 				AB1B13A62A1282EA002FE267 /* HumanKeypoint.swift in Sources */,
 				AB2E9DC12A14AC2B00922C00 /* NodeModels.swift in Sources */,
 				AB1B13A12A1280BE002FE267 /* Pose3DSceneView.swift in Sources */,
+				ABDE1A842A1B58C400E0D618 /* Constants.swift in Sources */,
+				ABDE1A862A1B658C00E0D618 /* HumanSkeletonTree.swift in Sources */,
+				ABDE1A882A1B659C00E0D618 /* LegSkeletonTree.swift in Sources */,
 				ABB1BD602A133A0800200D6D /* KeypointsData.swift in Sources */,
+				ABDE1A7F2A1B366300E0D618 /* BipedRobotJointNames.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
