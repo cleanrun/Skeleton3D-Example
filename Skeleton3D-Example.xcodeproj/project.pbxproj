@@ -29,6 +29,7 @@
 		ABDE1A842A1B58C400E0D618 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A832A1B58C400E0D618 /* Constants.swift */; };
 		ABDE1A862A1B658C00E0D618 /* HumanSkeletonTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A852A1B658C00E0D618 /* HumanSkeletonTree.swift */; };
 		ABDE1A882A1B659C00E0D618 /* LegSkeletonTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A872A1B659C00E0D618 /* LegSkeletonTree.swift */; };
+		ABDE1A8A2A1BCF4200E0D618 /* SCNTransaction+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A892A1BCF4200E0D618 /* SCNTransaction+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		ABDE1A832A1B58C400E0D618 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ABDE1A852A1B658C00E0D618 /* HumanSkeletonTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanSkeletonTree.swift; sourceTree = "<group>"; };
 		ABDE1A872A1B659C00E0D618 /* LegSkeletonTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegSkeletonTree.swift; sourceTree = "<group>"; };
+		ABDE1A892A1BCF4200E0D618 /* SCNTransaction+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNTransaction+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				ABDE1A792A1B2E4700E0D618 /* SCNVector3+Extension.swift */,
+				ABDE1A892A1BCF4200E0D618 /* SCNTransaction+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 			files = (
 				AB1B13A42A1281EB002FE267 /* KeypointJointType.swift in Sources */,
 				AB1B13902A125677002FE267 /* ViewController.swift in Sources */,
+				ABDE1A8A2A1BCF4200E0D618 /* SCNTransaction+Extension.swift in Sources */,
 				ABDE1A7C2A1B30A500E0D618 /* BipedRobotScene.swift in Sources */,
 				AB1B138C2A125677002FE267 /* AppDelegate.swift in Sources */,
 				ABDE1A7A2A1B2E4700E0D618 /* SCNVector3+Extension.swift in Sources */,

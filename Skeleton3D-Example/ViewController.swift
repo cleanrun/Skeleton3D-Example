@@ -78,6 +78,12 @@ class ViewController: UIViewController {
     
     @objc private func buttonAction(_ sender: UIButton) {
         //sceneView.switchFrame(isNext: sender == nextButton)
+        
+        if sender == nextButton {
+            sceneView.moveHand(true)
+        } else {
+            sceneView.moveHand(false)
+        }
     }
 
 }

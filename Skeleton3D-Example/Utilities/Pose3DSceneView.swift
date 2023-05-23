@@ -94,9 +94,9 @@ final class Pose3DSceneView: SCNView {
         humanSkeletonTree = HumanSkeletonTree(keypointsData: kp, rootNode: scene!.rootNode)
         
         
-//        cameraNode.position = SCNVector3Make(armSkeletonTree.forearmNode.position.x,
-//                                             armSkeletonTree.forearmNode.position.y,
-//                                             50)
+        cameraNode.position = SCNVector3Make(kp.rightArmKeypoints[1].getConvertedPosition(relativeTo: CGFloat(studioSize)).x,
+                                             kp.rightArmKeypoints[1].getConvertedPosition(relativeTo: CGFloat(studioSize)).y,
+                                             20)
     }
     
     /// Initialize the background nodes for containing the keypoints and skeletons
@@ -285,6 +285,16 @@ final class Pose3DSceneView: SCNView {
         print("current id: \(currentKeypoint.id)")
         
         //currentKeypoint = isNext ? keypointsData.last : keypointsData.first
+    }
+    
+    func moveHand(_ next: Bool) {
+        if next {
+            humanSkeletonTree.changeHandPosition(keypointsData.last!.rightArmKeypoints[2].getConvertedPosition(relativeTo: CGFloat(studioSize)))
+            currentKeypoint = keypointsData.last!
+        } else {
+            humanSkeletonTree.changeHandPosition(keypointsData[100].rightArmKeypoints[2].getConvertedPosition(relativeTo: CGFloat(studioSize)))
+            currentKeypoint = keypointsData[100]
+        }
     }
     
 }
