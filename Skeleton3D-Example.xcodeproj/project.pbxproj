@@ -19,7 +19,7 @@
 		AB2E9DC12A14AC2B00922C00 /* NodeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2E9DC02A14AC2B00922C00 /* NodeModels.swift */; };
 		AB95F9522A13CA0100AF7D31 /* SkeletonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB95F9512A13CA0100AF7D31 /* SkeletonType.swift */; };
 		ABB1BD602A133A0800200D6D /* KeypointsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABB1BD5F2A133A0800200D6D /* KeypointsData.swift */; };
-		ABB1BD612A133BEC00200D6D /* keypoints_data.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1B139F2A12785B002FE267 /* keypoints_data.json */; };
+		ABB1BD612A133BEC00200D6D /* keypoints_data_dtl.json in Resources */ = {isa = PBXBuildFile; fileRef = AB1B139F2A12785B002FE267 /* keypoints_data_dtl.json */; };
 		ABDE1A762A1B2C3100E0D618 /* biped_robot.fbx in Resources */ = {isa = PBXBuildFile; fileRef = ABDE1A742A1B2C3100E0D618 /* biped_robot.fbx */; };
 		ABDE1A772A1B2C3100E0D618 /* biped_robot.usdz in Resources */ = {isa = PBXBuildFile; fileRef = ABDE1A752A1B2C3100E0D618 /* biped_robot.usdz */; };
 		ABDE1A7A2A1B2E4700E0D618 /* SCNVector3+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDE1A792A1B2E4700E0D618 /* SCNVector3+Extension.swift */; };
@@ -41,7 +41,7 @@
 		AB1B13942A125678002FE267 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB1B13972A125678002FE267 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB1B13992A125678002FE267 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AB1B139F2A12785B002FE267 /* keypoints_data.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = keypoints_data.json; sourceTree = "<group>"; };
+		AB1B139F2A12785B002FE267 /* keypoints_data_dtl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = keypoints_data_dtl.json; sourceTree = "<group>"; };
 		AB1B13A02A1280BE002FE267 /* Pose3DSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pose3DSceneView.swift; sourceTree = "<group>"; };
 		AB1B13A32A1281EB002FE267 /* KeypointJointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeypointJointType.swift; sourceTree = "<group>"; };
 		AB1B13A52A1282EA002FE267 /* HumanKeypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HumanKeypoint.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 				AB1B13942A125678002FE267 /* Assets.xcassets */,
 				AB1B13962A125678002FE267 /* LaunchScreen.storyboard */,
 				AB1B13992A125678002FE267 /* Info.plist */,
-				AB1B139F2A12785B002FE267 /* keypoints_data.json */,
+				AB1B139F2A12785B002FE267 /* keypoints_data_dtl.json */,
 			);
 			path = "Skeleton3D-Example";
 			sourceTree = "<group>";
@@ -216,7 +216,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABB1BD612A133BEC00200D6D /* keypoints_data.json in Resources */,
+				ABB1BD612A133BEC00200D6D /* keypoints_data_dtl.json in Resources */,
 				AB1B13982A125678002FE267 /* LaunchScreen.storyboard in Resources */,
 				ABDE1A762A1B2C3100E0D618 /* biped_robot.fbx in Resources */,
 				AB1B13952A125678002FE267 /* Assets.xcassets in Resources */,

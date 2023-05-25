@@ -67,18 +67,11 @@ final class ArmSkeletonTree {
     }
     
     /// Setting up the constraints for Inverse Kinematics animation
+    @available(iOS, obsoleted: 1.0,
+               message: "Setting the IK constraints is not performed in the `ArmSkeletonTree` anymore, rather in `HumanSkeletonTree` object.")
     private func setInverseKinematicsConstraint() {
         ikConstraint = .inverseKinematicsConstraint(chainRootNode: armNode)
         handNode.constraints = [ikConstraint]
-        forearmNode.constraints = [ikConstraint]
         //ikConstraint.setMaxAllowedRotationAngle(45, forJoint: forearmNode)
-        
     }
-    
-//    func changeHandPosition(_ vector: SCNVector3) {
-//        SCNTransaction.animateEaseInOut(duration: 0.5) { [unowned self] in
-//            ikConstraint.targetPosition = vector
-//            //handNode.position = forearmNode.convertPosition(vector, from: mainSceneRootNode)
-//        }
-//    }
 }

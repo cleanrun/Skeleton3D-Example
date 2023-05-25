@@ -10,8 +10,7 @@ import Foundation
 struct KeypointsData: Decodable {
     let id: Int
     private let keypoints3d: [[Float]]
-    
-    var keypoints: [HumanKeypoint] {
+    private var keypoints: [HumanKeypoint] {
         keypoints3d.enumerated().map { index, element in
             HumanKeypoint(type: index, x: element[0], y: element[1], z: element[2])
         }
@@ -87,5 +86,12 @@ struct KeypointsData: Decodable {
                           y: keypoints3d[KeypointJointType.leftFoot.rawValue][1],
                           z: keypoints3d[KeypointJointType.leftFoot.rawValue][2])
         ]
+    }
+    
+    /// Get a certain keypoint object based on the desired type
+    /// - Parameter type: The type of the keypoint
+    /// - Returns: Returns the desired keypoint object. Will return `nil` if the keypoint doesn't exist
+    func getKeypoint(type: KeypointJointType) -> HumanKeypoint? {
+        keypoints.first(where: { $0.type == type })
     }
 }

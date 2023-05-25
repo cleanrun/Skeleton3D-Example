@@ -7,25 +7,24 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     /// A custom `SCNView`object to render the keypoints
     private var sceneView: Pose3DSceneView!
     
-    /// A button to switch to the next frame
-    private lazy var nextButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Next", for: .normal)
-        return button
+    /// A label that will show the current index of the showed frame
+    private lazy var currentFrameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .boldSystemFont(ofSize: 24)
+        return label
     }()
     
-    /// A button to switch to the previous frame
-    private lazy var previousButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Prev", for: .normal)
-        return button
+    /// The slider to move the frames
+    private lazy var frameSlider: UISlider = {
+        let slider = UISlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        return slider
     }()
     
     /// The keypoints data loaded from a JSON file
@@ -41,30 +40,33 @@ class ViewController: UIViewController {
     private func setupViews() {
         sceneView = Pose3DSceneView(using: keypointsData)
         sceneView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(frameSlider)
         view.addSubview(sceneView)
-        view.addSubview(nextButton)
-        view.addSubview(previousButton)
+        view.addSubview(currentFrameLabel)
         
         NSLayoutConstraint.activate([
+            frameSlider.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            frameSlider.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            frameSlider.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            frameSlider.heightAnchor.constraint(equalToConstant: 80),
+            
             sceneView.leftAnchor.constraint(equalTo: view.leftAnchor),
             sceneView.rightAnchor.constraint(equalTo: view.rightAnchor),
             sceneView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            sceneView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            sceneView.bottomAnchor.constraint(equalTo: frameSlider.topAnchor),
             
-            nextButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            nextButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            
-            previousButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            previousButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            currentFrameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            currentFrameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
         ])
         
-        nextButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
-        previousButton.addTarget(self, action: #selector(buttonAction(_:)), for: .touchUpInside)
+        frameSlider.minimumValue = 1
+        frameSlider.maximumValue = Float(keypointsData.count)
+        frameSlider.addTarget(self, action: #selector(sliderAction(_:)), for: .valueChanged)
     }
     
     /// Load the data from a JSON file from the Bundle
     private func loadJSONData() {
-        guard let url = Bundle.main.url(forResource: "keypoints_data", withExtension: "json") else { return }
+        guard let url = Bundle.main.url(forResource: "keypoints_data_dtl", withExtension: "json") else { return }
         
         do {
             let data = try Data(contentsOf: url)
@@ -76,14 +78,10 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc private func buttonAction(_ sender: UIButton) {
-        //sceneView.switchFrame(isNext: sender == nextButton)
-        
-        if sender == nextButton {
-            sceneView.moveHand(true)
-        } else {
-            sceneView.moveHand(false)
-        }
+    @objc private func sliderAction(_ sender: UISlider) {
+        let currentValue = Int(sender.value)
+        sceneView.switchFrame(to: currentValue)
+        currentFrameLabel.text = "Frame: \(currentValue)"
     }
 
 }

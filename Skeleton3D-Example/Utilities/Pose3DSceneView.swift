@@ -84,19 +84,19 @@ final class Pose3DSceneView: SCNView {
         
         // This is to limit the camera rotation only to X axis
         defaultCameraController.maximumVerticalAngle = 0.001
-
-        let kp = keypointsData.last!
         
         configureInitialKeypoints()
-        currentKeypoint = kp
+        currentKeypoint = keypointsData.first!
         setCameraNodePosition()
         
-        humanSkeletonTree = HumanSkeletonTree(keypointsData: kp, rootNode: scene!.rootNode)
+        humanSkeletonTree = HumanSkeletonTree(keypointsData: currentKeypoint, rootNode: scene!.rootNode)
         
-        
+        // FIXME: This is to center the POV based on the right arm keypoints
+        /*
         cameraNode.position = SCNVector3Make(kp.rightArmKeypoints[1].getConvertedPosition(relativeTo: CGFloat(studioSize)).x,
                                              kp.rightArmKeypoints[1].getConvertedPosition(relativeTo: CGFloat(studioSize)).y,
                                              20)
+         */
     }
     
     /// Initialize the background nodes for containing the keypoints and skeletons
@@ -126,7 +126,7 @@ final class Pose3DSceneView: SCNView {
     ///
     /// The reason for this is to make the 3D model is centered to the screen.
     private func setCameraNodePosition() {
-        guard let hipKeypoint = currentKeypoint.keypoints.first(where: { $0.type == .hips }) else { return }
+        guard let hipKeypoint = currentKeypoint.getKeypoint(type: .hips) else { return }
         
         cameraNode.position = SCNVector3Make(hipKeypoint.getConvertedPosition(relativeTo: CGFloat(studioSize)).x,
                                              hipKeypoint.getConvertedPosition(relativeTo: CGFloat(studioSize)).y,
@@ -136,6 +136,8 @@ final class Pose3DSceneView: SCNView {
     /// Create a specific sphere node to indicate the position of keypoint from a data
     /// - Parameter keypoint: The keypoint model
     /// - Returns: Returns the created node
+    @available(iOS, obsoleted: 1.0,
+                message: "Creating keypoint nodes based on a keypoint information is unavailable.")
     private func createKeypointNode(from keypoint: HumanKeypoint) -> SCNNode {
         let sphere = SCNSphere(radius: keypointNodeRadius)
         let keypointNode = SCNNode(geometry: sphere)
@@ -161,8 +163,8 @@ final class Pose3DSceneView: SCNView {
     /// - Returns: Returns the created nodes between both keypoint vectors. Returns `nil` if one of the keypoints doesn't exist
     private func createLineBetweenNodes(type: SkeletonType) -> SCNNode? {
         guard
-            let originKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.originKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
-            let destinationKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.destinationKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize))
+            let originKeypointVector = currentKeypoint.getKeypoint(type: type.originKeypoint)?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
+            let destinationKeypointVector = currentKeypoint.getKeypoint(type: type.destinationKeypoint)?.getConvertedPosition(relativeTo: CGFloat(studioSize))
         else { return nil }
         
         let vector = SCNVector3Make(originKeypointVector.x - destinationKeypointVector.x,
@@ -209,8 +211,8 @@ final class Pose3DSceneView: SCNView {
         
         SkeletonType.allCases.forEach { type in
             guard
-                let originKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.originKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
-                let destinationKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.destinationKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize))
+                let originKeypointVector = currentKeypoint.getKeypoint(type: type.originKeypoint)?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
+                let destinationKeypointVector = currentKeypoint.getKeypoint(type: type.destinationKeypoint)?.getConvertedPosition(relativeTo: CGFloat(studioSize))
             else { return }
             
             let vector = SCNVector3Make(originKeypointVector.x - destinationKeypointVector.x,
@@ -242,19 +244,21 @@ final class Pose3DSceneView: SCNView {
     private func updateKeypointPositions() {
         keypointNodes.enumerated().forEach { index, model in
             if index != model.type.rawValue { return }
-            let position = currentKeypoint.keypoints[model.type.rawValue]
+            let position = currentKeypoint.getKeypoint(type: model.type)!
             let node = model.node
             node.position = position.getConvertedPosition(relativeTo: CGFloat(studioSize))
         }
     }
     
     /// Update the position of each skeleton nodes when the current keypoint changes
+    @available(iOS, obsoleted: 1.0,
+                message: "Updating skeleton positions has some weird behavior. Use `configureSkeletonNodes()` instead.")
     private func updateSkeletonPositions() {
         // FIXME: When updating the skeletons, it has some weird behavior (run it to see the problem)
         SkeletonType.allCases.forEach { type in
             guard
-                let originKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.originKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
-                let destinationKeypointVector = currentKeypoint.keypoints.first(where: { $0.type == type.destinationKeypoint })?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
+                let originKeypointVector = currentKeypoint.getKeypoint(type: type.originKeypoint)?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
+                let destinationKeypointVector = currentKeypoint.getKeypoint(type: type.destinationKeypoint)?.getConvertedPosition(relativeTo: CGFloat(studioSize)),
                 let lineNodeModel = skeletonNodes.first(where: { $0.type == type })
             else { return }
             
@@ -272,29 +276,15 @@ final class Pose3DSceneView: SCNView {
     }
     
     /// Switches the keypoint information based on the keypoints array
-    /// - Parameter isNext: An indicator whether the changed keypoint will be the next ot the previous one of the current keypoint
-    func switchFrame(isNext: Bool) {
-        if isNext {
-            guard currentKeypoint.id != (keypointsData.count - 1) else { return }
-            currentKeypoint = keypointsData[currentKeypoint.id + 1]
-        } else {
-            guard currentKeypoint.id != 0 else { return }
-            currentKeypoint = keypointsData[currentKeypoint.id - 1]
-        }
-        
-        print("current id: \(currentKeypoint.id)")
-        
-        //currentKeypoint = isNext ? keypointsData.last : keypointsData.first
+    /// - Parameter frameIndex: The index of the desired frame to be displayed
+    func switchFrame(to frameIndex: Int) {
+        currentKeypoint = keypointsData[frameIndex - 1]
+        changePositions()
     }
     
-    func moveHand(_ next: Bool) {
-        if next {
-            humanSkeletonTree.changeHandPosition(keypointsData.last!.rightArmKeypoints[2].getConvertedPosition(relativeTo: CGFloat(studioSize)))
-            currentKeypoint = keypointsData.last!
-        } else {
-            humanSkeletonTree.changeHandPosition(keypointsData[100].rightArmKeypoints[2].getConvertedPosition(relativeTo: CGFloat(studioSize)))
-            currentKeypoint = keypointsData[100]
-        }
+    /// Moves both of the arms based on the inverse kinematics constraint
+    private func changePositions() {
+        humanSkeletonTree.changePositions(using: currentKeypoint)
     }
     
 }
